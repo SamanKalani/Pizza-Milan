@@ -12,11 +12,15 @@ import { useEffect } from "react";
 import UpdateOrder from "./UpdateOrder";
 
 function Order() {
+  // Fetch the current order data using the route's loader
   const order = useLoaderData();
+  // Fetch the menu data from the '/menu' route in the background
+  // without changing the URL, to read pizza ingredients
   const fetcher = useFetcher();
 
   useEffect(
     function () {
+      // If we don't have the menu data and we're not already loading it, fetch it
       if (!fetcher.data && fetcher.state === "idle") fetcher.load("/menu");
     },
     [fetcher],
@@ -92,7 +96,7 @@ function Order() {
     </div>
   );
 }
-
+// params is an object that contains the parameters of the current route. In this case, we are using it to get the orderId parameter from the URL. We then use this orderId to fetch the order data from the API using the getOrder() function. Finally, we return the order data so that it can be used by the Order component.
 export async function loader({ params }) {
   const order = await getOrder(params.orderId);
   return order;

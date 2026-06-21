@@ -4,6 +4,7 @@ import CartOverview from "../features/cart/CartOverview";
 import Loader from "../ui/Loader";
 
 function AppLayout() {
+  //navigation.state can have values like "idle", "loading", or "submitting". In this case, we check if the state is "loading" to determine if we should show the Loader component.
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
   return (

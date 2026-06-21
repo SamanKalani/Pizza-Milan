@@ -12,6 +12,7 @@ function Menu() {
     </ul>
   );
 }
+//loader render data before the component is rendered. This is useful for fetching data that the component needs to render, so that the component doesn't have to handle loading states or errors itself. Instead, the loader can handle those concerns and provide the component with the data it needs to render.
 export async function loader() {
   const menu = await getMenu();
   return menu;

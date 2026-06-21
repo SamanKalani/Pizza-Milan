@@ -28,6 +28,7 @@ function CreateOrder() {
   const isLoadingAddress = addressStatus === "loading";
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
+  //useActionData is a hook that allows us to access the data returned from the action function. In this case, we are using it to get any form errors that may have occurred during the submission of the order form.
   const formErrors = useActionData();
   const dispatch = useDispatch();
   const cart = useSelector(getCart);
@@ -136,8 +137,10 @@ function CreateOrder() {
   );
 }
 
+//request is an object that contains information about the request being made, such as the method, headers, and body. In this case, we are using the request object to get the form data that was submitted by the user. We then convert the form data into a JavaScript object using Object.fromEntries() and create a new order object that includes the cart items and priority status. We also validate the phone number and return any errors if necessary. Finally, we create a new order using the createOrder() function and clear the cart before redirecting the user to the order confirmation page.
 export async function action({ request }) {
   const formData = await request.formData();
+  //formData looks like this: FormData { 'customer' => 'John', 'phone' => '1234567890', 'address' => '123 Main St', 'cart' => '[{"pizzaId":1,"name":"Margherita","quantity":2,"unitPrice":10,"totalPrice":20}]', 'priority' => 'true' }
   const data = Object.fromEntries(formData);
   const order = {
     ...data,
